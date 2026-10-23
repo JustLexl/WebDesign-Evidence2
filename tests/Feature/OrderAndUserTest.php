@@ -6,6 +6,7 @@ use Tests\TestCase;
 use App\Models\User;
 use App\Models\Order;
 use App\Models\Department;
+use App\Models\OrderEvidence;
 use Illuminate\Http\UploadedFile;
 use Illuminate\Foundation\Testing\DatabaseTransactions;
 
@@ -165,5 +166,19 @@ class OrderAndUserTest extends TestCase
         $restoreResponse->assertRedirect('/orders-archived');
         $order->refresh();
         $this->assertFalse($order->trashed());
+    }
+
+    public function test_factories_generate_valid_data()
+    {
+        $user = User::factory()->create();
+        $this->assertNotNull($user->id);
+
+        $order = Order::factory()->create();
+        $this->assertNotNull($order->id);
+        $this->assertNotNull($order->invoice_number);
+
+        $evidence = OrderEvidence::factory()->create();
+        $this->assertNotNull($evidence->id);
+        $this->assertNotNull($evidence->photo_path);
     }
 }

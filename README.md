@@ -153,8 +153,8 @@ The application includes comprehensive seeders (`DepartmentSeeder`, `UserSeeder`
 
 1. **Clone the repository:**
    ```bash
-   git clone https://github.com/JustLexl/Dise-oAct9Tarea8.git
-   cd Dise-oAct9Tarea8
+   git clone https://github.com/JustLexl/WebDesign-Evidence2.git
+   cd WebDesign-Evidence2
    ```
 
 2. **Install PHP dependencies:**

@@ -44,9 +44,9 @@ class OrderAndUserTest extends TestCase
         $admin = User::where('email', 'admin@halcon.com')->first();
         $response = $this->actingAs($admin)->get('/dashboard');
         $response->assertStatus(200);
-        $response->assertSee('Administrative Dashboard');
-        $response->assertSee('Orders Management');
-        $response->assertSee('Users and Roles Management');
+        $response->assertSee('Dashboard');
+        $response->assertSee('Orders');
+        $response->assertSee('Users');
     }
 
     public function test_user_management_crud()

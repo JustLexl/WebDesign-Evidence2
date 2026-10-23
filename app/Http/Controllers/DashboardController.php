@@ -2,9 +2,8 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\User;
 use App\Models\Order;
-use App\Models\Department;
+use App\Models\User;
 
 class DashboardController extends Controller
 {
@@ -15,30 +14,10 @@ class DashboardController extends Controller
 
     public function index()
     {
-        $totalUsers = User::count();
-        $activeUsers = User::where('is_active', true)->count();
-        $inactiveUsers = User::where('is_active', false)->count();
-
-        $totalOrders = Order::count();
-        $orderedCount = Order::where('status', 'Ordered')->count();
-        $inProcessCount = Order::where('status', 'In process')->count();
-        $inRouteCount = Order::where('status', 'In route')->count();
-        $deliveredCount = Order::where('status', 'Delivered')->count();
+        $ordersCount = Order::count();
         $archivedCount = Order::onlyTrashed()->count();
+        $usersCount = User::count();
 
-        $recentOrders = Order::with('user')->latest()->take(5)->get();
-
-        return view('dashboard', compact(
-            'totalUsers',
-            'activeUsers',
-            'inactiveUsers',
-            'totalOrders',
-            'orderedCount',
-            'inProcessCount',
-            'inRouteCount',
-            'deliveredCount',
-            'archivedCount',
-            'recentOrders'
-        ));
+        return view('dashboard', compact('ordersCount', 'archivedCount', 'usersCount'));
     }
 }

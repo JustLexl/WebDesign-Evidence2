@@ -42,7 +42,7 @@
                         @endauth
                     </ul>
 
-                    <ul class="navbar-nav ms-auto">
+                    <ul class="navbar-nav ms-auto align-items-center">
                         @guest
                             @if (Route::has('login'))
                                 <li class="nav-item">
@@ -50,30 +50,17 @@
                                 </li>
                             @endif
                         @else
-                            <li class="nav-item dropdown">
-                                <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
-                                    {{ Auth::user()->name }} ({{ Auth::user()->department->name ?? 'Staff' }})
+                            <li class="nav-item text-white me-3">
+                                <span>{{ Auth::user()->name }} ({{ Auth::user()->department->name ?? 'Staff' }})</span>
+                            </li>
+                            <li class="nav-item">
+                                <a class="btn btn-sm btn-outline-light" href="{{ route('logout') }}"
+                                   onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
+                                    Logout
                                 </a>
-
-                                <div class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
-                                    <a class="dropdown-item" href="{{ route('dashboard') }}">
-                                        Dashboard
-                                    </a>
-                                    <a class="dropdown-item" href="{{ route('orders.index') }}">
-                                        Orders
-                                    </a>
-                                    <a class="dropdown-item" href="{{ route('users.index') }}">
-                                        Users Management
-                                    </a>
-                                    <hr class="dropdown-divider">
-                                    <a class="dropdown-item" href="{{ route('logout') }}"
-                                       onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
-                                        Logout
-                                    </a>
-                                    <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
-                                        @csrf
-                                    </form>
-                                </div>
+                                <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
+                                    @csrf
+                                </form>
                             </li>
                         @endguest
                     </ul>

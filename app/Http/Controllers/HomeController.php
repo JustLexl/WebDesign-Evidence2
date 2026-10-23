@@ -3,26 +3,26 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Models\Order;
 
 class HomeController extends Controller
 {
-    /**
-     * Create a new controller instance.
-     *
-     * @return void
-     */
-    public function __construct()
+    public function index(Request $request)
     {
-        $this->middleware('auth');
-    }
+        $invoiceNumber = trim($request->input('invoice_number', ''));
+        $customerNumber = trim($request->input('customer_number', ''));
+        $order = null;
+        $searched = false;
 
-    /**
-     * Show the application dashboard.
-     *
-     * @return \Illuminate\Contracts\Support\Renderable
-     */
-    public function index()
-    {
-        return view('home');
+        if ($request->filled('invoice_number')) {
+            $searched = true;
+            $query = Order::where('invoice_number', $invoiceNumber);
+            if (!empty($customerNumber)) {
+                $query->where('customer_number', $customerNumber);
+            }
+            $order = $query->first();
+        }
+
+        return view('landingpage', compact('order', 'searched', 'invoiceNumber', 'customerNumber'));
     }
 }
